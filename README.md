@@ -1,4 +1,5 @@
 # Yin
+![Yin Lib CTests](https://github.com/wjrforcyber/Yin/actions/workflows/main.yml/badge.svg)
 ## Introduction
 C Yin library, named after "寅虎", is one of the Synthesis and Verification Libraries of Zodiac Program.
 
