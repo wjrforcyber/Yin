@@ -1,0 +1,23 @@
+name: YinLib Test
+run-name: Test every single function interface
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-project:
+    name: TT Interface tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Build Project
+        uses: threeal/cmake-action@v2.1.0
+
+      - name: Test Project
+        uses: threeal/ctest-action@v1.1.0
+        with:
+          test-dir: build/test
+          tests-regex: ^TT
+          
