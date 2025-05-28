@@ -19,5 +19,3 @@ jobs:
         uses: threeal/ctest-action@v1.1.0
         with:
           test-dir: build/test
-          tests-regex: ^TT
-          

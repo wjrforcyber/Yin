@@ -1,6 +1,16 @@
 
+#include <malloc/_malloc_type.h>
 typedef struct truthTable_ truthTable;
 typedef unsigned long tt;
+
+//some number base
+enum BASE
+{
+    BIN,
+    OCT,
+    DEC,
+    HEX
+};
 
 static tt maskTT[] = 
 {
@@ -31,3 +41,4 @@ struct truthTable_
 };
 
 int initElementaryVar( truthTable* a, int varNum, int ith );
+void showTT( truthTable* a, enum BASE b);

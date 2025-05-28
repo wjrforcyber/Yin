@@ -24,3 +24,17 @@ int initElementaryVar( truthTable* a, int varNum, int ith )
     a->ttrep = maskTT[ith] & mask[varNum];
     return 0;
 }
+
+//print out the truth table in various format
+void showTT( truthTable* a, enum BASE b)
+{
+    printf("Truth table contains:\n");
+    if( b == DEC)
+    {
+        printf("%ld\n", a->ttrep);
+    }
+    if( b == HEX)
+    {
+        printf("0x%016lX\n", a->ttrep);
+    }
+}
