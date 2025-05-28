@@ -1,5 +1,4 @@
 
-#include <malloc/_malloc_type.h>
 typedef struct truthTable_ truthTable;
 typedef unsigned long tt;
 
