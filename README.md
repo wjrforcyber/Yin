@@ -5,6 +5,9 @@ C Yin library, named after "寅虎", is one of the Synthesis and Verification Li
 
 Yin contains operation on truth table, it is separated from the graph based optimization library. Truth table, especially bit-level based technique will be extended here in this library. As for STP(Semi-tensor product) based example, please refer to [Zilib](https://github.com/wjrforcyber/Zi).
 
+> [!CAUTION]
+> Sanitize check is turned on, if mem error/leak exists, PR won't be accepted.
+
 ## Build
 ```
 mkdir build
