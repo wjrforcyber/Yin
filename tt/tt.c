@@ -2,7 +2,6 @@
 #include "tt.h"
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 //check boundaries
 int checkPredefBound( int* varNum )
@@ -44,6 +43,18 @@ truthTable* initTT( int varNum )
     return a;
 }
 
+//log2 of unsigned int
+int getVarNum( int len )
+{
+    int res = 0;
+    while((len >> 1) > 0)
+    {
+        res++;
+        len >>= 1;
+    }
+    return res;
+}
+
 //read truth table
 /*
 Support 0,1,-
@@ -53,7 +64,7 @@ truthTable* readTT( char * tts, int verbose)
 {
     char* ch = tts;
     int len = strlen(tts) - 1;
-    int varNum = (int)log2(len);
+    int varNum = getVarNum(len);
     truthTable *a = initTT( varNum );
     unsigned long *res = &(a->ttrep);
     unsigned long *maskBit = &(a->maskSpec);
