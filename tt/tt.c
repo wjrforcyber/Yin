@@ -81,6 +81,9 @@ truthTable* readTT( char * tts, int verbose)
               break;
             case '-':
               break;
+            default:
+              printf("Unknown symbol %c.\n", *ch);
+              return NULL;
         }
         ch++;
         len--;
