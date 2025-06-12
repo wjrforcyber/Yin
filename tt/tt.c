@@ -43,6 +43,17 @@ truthTable* initTT( int varNum )
     return a;
 }
 
+//copy a truth table
+truthTable* copyTT(truthTable* a)
+{
+    truthTable* copy = initTT(a->varNum);
+    copy->elementary = a->elementary;
+    copy->maskSpec = a->maskSpec;
+    copy->ttrep = a->ttrep;
+    copy->varNum = a->varNum;
+    return copy;
+}
+
 //log2 of unsigned int
 int getVarNum( int len )
 {
@@ -117,6 +128,22 @@ int evalTTMask(truthTable*a, unsigned int val)
     else {
         return 1;
     }
+}
+
+//cofactor0
+truthTable* cofactor0(truthTable*a, int index)
+{
+    truthTable* copy = copyTT(a);
+    copy->ttrep = (copy->ttrep & maskTTNeg[index]) | ( (copy->ttrep & maskTTNeg[index]) << (1 << index) );
+    return copy;
+}
+
+//cofactor1
+truthTable* cofactor1(truthTable*a, int index)
+{
+    truthTable* copy = copyTT(a);
+    copy->ttrep = (copy->ttrep & maskTT[index]) | ((copy->ttrep & maskTT[index]) >> (1 << index) );
+    return copy;
 }
 
 //clear truth table
