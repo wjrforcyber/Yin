@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/tt)
-
 add_executable(ttInitEleVar ttInitEleVar.c)
 target_link_libraries(ttInitEleVar yinTT)
 add_test(NAME TTTestInitEleVar COMMAND ttInitEleVar)
@@ -11,3 +9,8 @@ add_test(NAME TTTestReadTT COMMAND ttReadTT)
 add_executable(ttCofactor ttCofactor.c)
 target_link_libraries(ttCofactor yinTT)
 add_test(NAME TTTestCofactor COMMAND ttCofactor)
+
+set(TALIBS yinTT ziArray)
+add_executable(ttIsop ttIsop.c)
+target_link_libraries(ttIsop ${TALIBS})
+add_test(NAME TTTestIsop COMMAND ttIsop)

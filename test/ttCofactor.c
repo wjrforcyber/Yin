@@ -27,7 +27,7 @@ int main()
     truthTable *ttCo = readTT(ttsCo, 1);
     //cofactor0
     truthTable* cfCo_02 = cofactor0(ttCo, 2);
-    showTT(cfCo_02, HEX);
+    showTT(cfCo_02, BHEX);
     assert(cfCo_02->ttrep == 0x88);
     clearTT(cfCo_02);
     

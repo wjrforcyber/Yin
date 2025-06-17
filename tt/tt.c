@@ -24,7 +24,7 @@ int initElementaryVar( truthTable* a, int varNum, int ith )
     a->varNum = varNum;
     a->elementary = 1;
     a->ttrep = maskTT[ith] & mask[varNum];
-    a->maskSpec = mask[6];
+    a->maskSpec = mask[6] & mask[varNum];
     return 0;
 }
 
@@ -41,6 +41,15 @@ truthTable* initTT( int varNum )
     a->ttrep = 0;
     a->maskSpec = 0;
     return a;
+}
+
+cube* initCube(truthTable * tt)
+{
+    cube * c = (cube *)malloc(sizeof(cube));
+    c->mask = (unsigned long)0UL & tt->maskSpec;
+    c->polarity = (unsigned long)0UL & tt->maskSpec;
+    c->varNum = tt->varNum;
+    return c;
 }
 
 //copy a truth table
@@ -101,7 +110,7 @@ truthTable* readTT( char * tts, int verbose)
     }
     if(verbose == 1)
     {
-        showTT(a, HEX);
+        showTT(a, BHEX);
     }
     return a;
 }
@@ -130,11 +139,16 @@ int evalTTMask(truthTable*a, unsigned int val)
     }
 }
 
+int hasVar(truthTable* tt, int index)
+{
+    return ((tt->ttrep >> ((unsigned long)1 << index)) & maskTTNeg[index]) != (tt->ttrep & maskTTNeg[index]);
+}
+
 //cofactor0
 truthTable* cofactor0(truthTable*a, int index)
 {
     truthTable* copy = copyTT(a);
-    copy->ttrep = (copy->ttrep & maskTTNeg[index]) | ( (copy->ttrep & maskTTNeg[index]) << (1 << index) );
+    copy->ttrep = ((copy->ttrep & maskTTNeg[index]) | ( (copy->ttrep & maskTTNeg[index]) << (1 << index) )) & a->maskSpec;
     return copy;
 }
 
@@ -142,8 +156,97 @@ truthTable* cofactor0(truthTable*a, int index)
 truthTable* cofactor1(truthTable*a, int index)
 {
     truthTable* copy = copyTT(a);
-    copy->ttrep = (copy->ttrep & maskTT[index]) | ((copy->ttrep & maskTT[index]) >> (1 << index) );
+    copy->ttrep = ((copy->ttrep & maskTT[index]) | ((copy->ttrep & maskTT[index]) >> (1 << index) )) & a->maskSpec;
     return copy;
+}
+
+//isConst, if defined bits are all 0 return 0, all 1 return 1. ignore dc here
+int isConst(truthTable * tt)
+{
+    if(tt->ttrep  == (tt->maskSpec & 0x0000000000000000))
+    {
+        return 0;
+    }
+    else if(tt->ttrep == (tt->maskSpec & mask[6])){
+        return 1;
+    }
+    return -1;
+}
+
+//return a zero based on the given tt
+truthTable* zero(truthTable * tt)
+{
+    truthTable * z = (truthTable *)malloc(sizeof(truthTable));
+    z->elementary = 0;
+    z->ttrep = (unsigned long)0UL & tt->maskSpec;
+    z->maskSpec = tt->maskSpec;
+    z->varNum = tt->varNum;
+    return z;
+}
+
+//return a zero based on the given tt
+truthTable* one(truthTable * tt)
+{
+    truthTable * z = (truthTable *)malloc(sizeof(truthTable));
+    z->elementary = 0;
+    z->ttrep = mask[6] & tt->maskSpec;
+    z->maskSpec = tt->maskSpec;
+    z->varNum = tt->varNum;
+    return z;
+}
+
+truthTable * notCopy(truthTable *tt)
+{
+    truthTable * notTT = copyTT(tt);
+    notTT->ttrep = (~tt->ttrep & tt->maskSpec);
+    return notTT;
+}
+
+void notInplace(truthTable *tt)
+{
+    tt->ttrep = (~tt->ttrep & tt->maskSpec);
+}
+
+truthTable * andCopy(truthTable * tt0, truthTable * tt1)
+{
+    if(tt0->varNum != tt1->varNum)
+    {
+        printf("Illegal AND operation due to different variable number.\n");
+    }
+    if(tt0->maskSpec != tt1->maskSpec)
+    {
+        printf("AND: Mask bits are different(%lu, %lu).\n",tt0->maskSpec, tt1->maskSpec);
+    }
+    truthTable * andTTRes = initTT(tt0->varNum);
+    andTTRes->varNum = tt0->varNum;
+    andTTRes->ttrep = tt0->ttrep & tt1->ttrep;
+    andTTRes->maskSpec = tt0->maskSpec;
+    return andTTRes;
+}
+
+truthTable * orCopy(truthTable * tt0, truthTable * tt1)
+{
+    if(tt0->varNum != tt1->varNum)
+    {
+        printf("Illegal OR operation due to different variable number.\n");
+    }
+    if(tt0->maskSpec != tt1->maskSpec)
+    {
+        printf("OR: Mask bits are different.\n");
+    }
+    truthTable * orTTRes = initTT(tt0->varNum);
+    orTTRes->varNum = tt0->varNum;
+    orTTRes->ttrep = tt0->ttrep | tt1->ttrep;
+    orTTRes->maskSpec = tt0->maskSpec;
+    return orTTRes;
+}
+
+void addLit(cube * cube, int varCur, int polarity)
+{
+    //set the varCur position to 1 in mask
+    cube->mask |= (1 << varCur);
+    //set the corresponding polarity
+    polarity == 1 ? (cube->polarity |= (1 << varCur)) : (cube->polarity &= ~(1 << varCur));
 }
 
 //clear truth table
@@ -157,11 +260,11 @@ int clearTT(truthTable* a)
 void showTT( truthTable* a, enum BASE b)
 {
     printf("Truth table contains:\n");
-    if( b == DEC)
+    if( b == BDEC)
     {
         printf("%ld\n", a->ttrep);
     }
-    if( b == HEX)
+    if( b == BHEX)
     {
         printf("0x%016lX\n", a->ttrep);
     }

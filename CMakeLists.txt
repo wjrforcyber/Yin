@@ -8,9 +8,12 @@ add_compile_options(-W -Wall -Wextra -fsanitize=address -g)
 
 add_link_options(-fsanitize=address)
 
+include_directories(libs/Zi/array)
+add_subdirectory(libs)
+
 # array lib
-ADD_LIBRARY( yinTT STATIC tt/tt.c )
 include_directories(tt)
+add_subdirectory(tt)
 
 include(CTest)
 add_subdirectory(test)

@@ -11,7 +11,7 @@ int main()
 
     truthTable tt0;
     assert(initElementaryVar(&tt0, 4, 1) == 0);
-    showTT(&tt0, HEX);
+    showTT(&tt0, BHEX);
     assert(tt0.ttrep == (maskTT[1] & mask[4]));
     return 0;
 }

@@ -1,0 +1,1 @@
+ADD_LIBRARY( yinTT STATIC tt.c isop.c)
