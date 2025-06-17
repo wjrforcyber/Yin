@@ -10,7 +10,9 @@ Yin contains operation on truth table, it is separated from the graph based opti
 > Sanitize check is turned on, if mem error/leak exists, PR won't be accepted.
 
 ## Build
+Since some functionalities depend on [Zilib](https://github.com/wjrforcyber/Zi), a recursive clone is needed.
 ```
+git clone --recursive git@github.com:wjrforcyber/Yin.git
 mkdir build
 cd build
 cmake ..
