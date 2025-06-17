@@ -23,6 +23,6 @@ int main()
     assert(cubes.size == 3);
     assert(clearTT(tt) == 0);
     assert(clearTT(res) == 0);
-    assert(clearArray(&cubes) == 0);
+    assert(clearEachEntryArray(&cubes) == 0);
     return 0;
 }
