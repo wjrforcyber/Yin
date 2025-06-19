@@ -38,8 +38,8 @@ truthTable* initTT( int varNum )
     }
     a->varNum = varNum;
     a->elementary = 0;
-    a->ttrep = 0;
-    a->maskSpec = 0;
+    a->ttrep = 0UL;
+    a->maskSpec = 0UL;
     return a;
 }
 

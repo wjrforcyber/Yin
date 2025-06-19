@@ -14,3 +14,7 @@ set(TALIBS yinTT ziArray)
 add_executable(ttIsop ttIsop.c)
 target_link_libraries(ttIsop ${TALIBS})
 add_test(NAME TTTestIsop COMMAND ttIsop)
+
+add_executable(ttSim ttSim.c)
+target_link_libraries(ttSim ${TALIBS})
+add_test(NAME TTTestSim COMMAND ttSim)
