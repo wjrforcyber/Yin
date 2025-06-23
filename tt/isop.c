@@ -91,6 +91,8 @@ truthTable* isop(truthTable* tt, truthTable * dc, int varIndex, ziArray * cubes)
     truthTable * dcRest = andCopy(dc0, dc1);
     truthTable * rest = isop(orRest, dcRest, varCur, cubes);
 
+    clearTT(and0Rest);
+    clearTT(and1Rest);
     clearTT(orRest);
     clearTT(dcRest);
 
@@ -114,6 +116,8 @@ truthTable* isop(truthTable* tt, truthTable * dc, int varIndex, ziArray * cubes)
     }
     clearTT(cf0);
     clearTT(cf1);
+    clearTT(dc0);
+    clearTT(dc1);
     clearTT(rec_0);
     clearTT(rec_1);
     clearTT(rest);
