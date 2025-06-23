@@ -9,7 +9,7 @@ int main()
     assert(tt->varNum = 3);
     ziArray cubes;
     initArray(&cubes, 10);
-    truthTable * res = isop(tt, tt->varNum, &cubes);
+    truthTable * res = isop(tt, tt, tt->varNum, &cubes);
     printf("Size of the cube is %d\n",cubes.size);
     printf("Show the cubes: \n");
     for(int i = 0; i < cubes.size; i++)

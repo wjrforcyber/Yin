@@ -51,6 +51,6 @@ truthTable* orCopy(truthTable* tt0, truthTable* tt1);
 truthTable* zero(truthTable* tt);
 truthTable* one(truthTable* tt);
 void addLit(cube* cube, int varCur, int polarity);
-truthTable* isop(truthTable* tt, int varIndex, ziArray* cubes);
+truthTable* isop(truthTable* tt, truthTable* dc, int varIndex, ziArray* cubes);
 int clearTT(truthTable* a);
 void showTT(truthTable* a, enum BASE b);
