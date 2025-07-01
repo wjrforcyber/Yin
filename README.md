@@ -19,3 +19,17 @@ cmake ..
 make
 make test
 ```
+
+## Select Interface
+- Check if a boolean function is positive/negative unate/binate etc. Use 
+<br>`enum FUNC_TYPE isUnate(truthTable* tt, ziArray* res);`
+For example, XOR is binate, by loading a two input truthtable $T$ which contains `0110`, and an array $A$ for storing each property of a variable $v_i$ on index $i$ of $A$. The final result is the property $P$ of the whole Boolean function.
+
+```C
+    ziArray record_xor;
+    char tts_xor[] = "0110";
+    truthTable *ttXOR = readTT(tts_xor, 1);
+    enum FUNC_TYPE type_unate_xor = isUnate(ttXOR, &record_xor);
+    assert(type_unate_xor == BINATE);
+    clearEachEntryArray(&record_xor);
+```
