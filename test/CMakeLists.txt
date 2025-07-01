@@ -18,3 +18,7 @@ add_test(NAME TTTestIsop COMMAND ttIsop)
 add_executable(ttSim ttSim.c)
 target_link_libraries(ttSim ${TALIBS})
 add_test(NAME TTTestSim COMMAND ttSim)
+
+add_executable(ttIsUnate ttUnate.c)
+target_link_libraries(ttIsUnate ${TALIBS})
+add_test(NAME TTTestIsUnate COMMAND ttIsUnate)

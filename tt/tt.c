@@ -83,11 +83,12 @@ Support 0,1,-
 truthTable* readTT( char * tts, int verbose)
 {
     char* ch = tts;
-    int len = strlen(tts) - 1;
+    int len = strlen(tts);
     int varNum = getVarNum(len);
     truthTable *a = initTT( varNum );
     unsigned long *res = &(a->ttrep);
     unsigned long *maskBit = &(a->maskSpec);
+    len--;
     while(*ch != '\0')
     {
         switch(*ch)
