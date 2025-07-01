@@ -1,10 +1,9 @@
 
 #include "unate.h"
 //check if the function is positive unate, negative unate or binate
-enum FUNC_TYPE isUnate(truthTable * tt, ziArray * unate_record)
+enum FUNC_TYPE isUnate(truthTable * tt, ziArray * res)
 {
     int i;
-    ziArray *res = unate_record;
     initArray(res, 10);
     for(int ithVar = 0; ithVar < tt->varNum; ithVar++)
     {
