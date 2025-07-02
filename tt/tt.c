@@ -196,6 +196,22 @@ truthTable* one(truthTable * tt)
     return z;
 }
 
+//get the weight of truthtable
+int getWeight(truthTable *tt)
+{
+    int count = 0;
+    unsigned long ttRep = tt->ttrep;
+    while(ttRep > 0)
+    {
+        if((ttRep & 1) == 1)
+        {
+            count++;
+        }
+        ttRep >>= 1;
+    }
+    return count;
+}
+
 truthTable * notCopy(truthTable *tt)
 {
     truthTable * notTT = copyTT(tt);

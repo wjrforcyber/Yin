@@ -50,6 +50,7 @@ truthTable* andCopy(truthTable* tt0, truthTable* tt1);
 truthTable* orCopy(truthTable* tt0, truthTable* tt1);
 truthTable* zero(truthTable* tt);
 truthTable* one(truthTable* tt);
+int getWeight(truthTable* tt);
 void addLit(cube* cube, int varCur, int polarity);
 truthTable* isop(truthTable* tt, truthTable* dc, int varIndex, ziArray* cubes);
 int clearTT(truthTable* a);

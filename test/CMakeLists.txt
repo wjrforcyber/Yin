@@ -10,6 +10,10 @@ add_executable(ttCofactor ttCofactor.c)
 target_link_libraries(ttCofactor yinTT)
 add_test(NAME TTTestCofactor COMMAND ttCofactor)
 
+add_executable(ttWeight ttWeight.c)
+target_link_libraries(ttWeight yinTT)
+add_test(NAME TTTestWeight COMMAND ttWeight)
+
 set(TALIBS yinTT ziArray)
 add_executable(ttIsop ttIsop.c)
 target_link_libraries(ttIsop ${TALIBS})
