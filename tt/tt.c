@@ -212,6 +212,21 @@ int getWeight(truthTable *tt)
     return count;
 }
 
+//get the distance between two truthtable
+int getDistance(truthTable *tt0, truthTable *tt1)
+{
+    if(tt0->varNum != tt1->varNum)
+    {
+        printf("Truthtables have different size.\n");
+        return -1;
+    }
+    //distance must be larger or equal to 0
+    truthTable* ttEval = xorCopy(tt0, tt1);
+    int nDis = getWeight(ttEval);
+    clearTT(ttEval);
+    return nDis;
+}
+
 truthTable * notCopy(truthTable *tt)
 {
     truthTable * notTT = copyTT(tt);
@@ -256,6 +271,23 @@ truthTable * orCopy(truthTable * tt0, truthTable * tt1)
     orTTRes->ttrep = tt0->ttrep | tt1->ttrep;
     orTTRes->maskSpec = tt0->maskSpec;
     return orTTRes;
+}
+
+truthTable * xorCopy(truthTable * tt0, truthTable * tt1)
+{
+    if(tt0->varNum != tt1->varNum)
+    {
+        printf("Illegal XOR operation due to different variable number.\n");
+    }
+    if(tt0->maskSpec != tt1->maskSpec)
+    {
+        printf("XOR: Mask bits are different.\n");
+    }
+    truthTable * xorTTRes = initTT(tt0->varNum);
+    xorTTRes->varNum = tt0->varNum;
+    xorTTRes->ttrep = tt0->ttrep ^ tt1->ttrep;
+    xorTTRes->maskSpec = tt0->maskSpec;
+    return xorTTRes;
 }
 
 void addLit(cube * cube, int varCur, int polarity)

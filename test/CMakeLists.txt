@@ -14,6 +14,10 @@ add_executable(ttWeight ttWeight.c)
 target_link_libraries(ttWeight yinTT)
 add_test(NAME TTTestWeight COMMAND ttWeight)
 
+add_executable(ttGetDistance ttGetDistance.c)
+target_link_libraries(ttGetDistance yinTT)
+add_test(NAME TTTestGetDistance COMMAND ttGetDistance)
+
 set(TALIBS yinTT ziArray)
 add_executable(ttIsop ttIsop.c)
 target_link_libraries(ttIsop ${TALIBS})
