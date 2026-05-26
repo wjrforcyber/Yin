@@ -30,3 +30,7 @@ add_test(NAME TTTestSim COMMAND ttSim)
 add_executable(ttIsUnate ttUnate.c)
 target_link_libraries(ttIsUnate ${TALIBS})
 add_test(NAME TTTestIsUnate COMMAND ttIsUnate)
+
+add_executable(ttThreshold ttThreshold.c)
+target_link_libraries(ttThreshold yinTT)
+add_test(NAME TTTestThreshold COMMAND ttThreshold)
