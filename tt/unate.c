@@ -42,7 +42,7 @@ enum FUNC_TYPE isUnate(truthTable * tt, ziArray * res)
             *eleEach = BINATE;
             pushArray(res, eleEach);
         }
-        else if(isNegUnate == 1 && isNegUnate == 1)
+        else if(isPosUnate == 1 && isNegUnate == 1)
         {
             enum FUNC_TYPE *eleEach = malloc(sizeof(enum FUNC_TYPE));
             *eleEach = IRRELEVANT;
@@ -58,8 +58,7 @@ enum FUNC_TYPE isUnate(truthTable * tt, ziArray * res)
     int countNegSum = 0;
     int countBinate = 0;
     int countIrr = 0;
-    //check if all pos_unate
-    ArrayForEachItem(res, i) for (i = 0; i < res->size; i++)
+    ArrayForEachItem(res, i)
     {
         enum FUNC_TYPE fetch = *(enum FUNC_TYPE*)fetchIndexArray(res, i);
         switch (fetch) {
@@ -80,23 +79,19 @@ enum FUNC_TYPE isUnate(truthTable * tt, ziArray * res)
                 return UNKNOW;
         }
     }
-    //check if all neg_unate
-    if(countPosSum == tt->varNum)
-    {
-        return POS_UNATE;
-    }
-    //check if binate
-    if(countNegSum == tt->varNum)
-    {
-        return NEG_UNATE;
-    }
-    //check if binate
-    if(countBinate == tt->varNum)
+    if (countBinate > 0)
     {
         return BINATE;
     }
-    //check if const
-    if(countIrr == tt->varNum)
+    if (countPosSum + countIrr == tt->varNum && countNegSum == 0)
+    {
+        return POS_UNATE;
+    }
+    if (countNegSum + countIrr == tt->varNum && countPosSum == 0)
+    {
+        return NEG_UNATE;
+    }
+    if (countIrr == tt->varNum)
     {
         return IRRELEVANT;
     }
