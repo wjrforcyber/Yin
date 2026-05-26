@@ -34,3 +34,7 @@ add_test(NAME TTTestIsUnate COMMAND ttIsUnate)
 add_executable(ttThreshold ttThreshold.c)
 target_link_libraries(ttThreshold yinTT)
 add_test(NAME TTTestThreshold COMMAND ttThreshold)
+
+add_executable(ttSymmetric ttSymmetric.c)
+target_link_libraries(ttSymmetric yinTT)
+add_test(NAME TTTestSymmetric COMMAND ttSymmetric)
