@@ -30,3 +30,32 @@ int isSymmetric(truthTable* tt)
     free(seen);
     return 1;
 }
+
+/**
+  \brief Given a truth table, decide whether this is a partically symmetric function, which means swapping given 2 variables in the original function wouldn't change the according truth table.
+  Showcase illustration: https://wjrforcyber.github.io/pub/permutation.pdf .
+  \param tt The truth table.
+  \param varIndex0 The first variable index.
+  \param varIndex1 The second variable index.
+*/
+int isSymmetric2Vars(truthTable* tt, int varIndex0, int varIndex1)
+{
+    if (varIndex0 == varIndex1)
+    {
+        printf("Warning: Trival case doesn't mean anything.\n");
+        return 1;
+    }
+    if (varIndex0 > varIndex1)
+    {
+        int tmp = varIndex0;
+        varIndex0 = varIndex1;
+        varIndex1 = tmp;
+    }
+    unsigned long mp = maskTT[varIndex0] & maskTTNeg[varIndex1];
+    unsigned long mq = maskTTNeg[varIndex0] & maskTT[varIndex1];
+    unsigned long mun = ~(mp | mq);
+    int ns = (1 << varIndex1) - (1 << varIndex0);
+    unsigned long ttSwap =
+        (tt->ttrep & mun) | ((tt->ttrep & mp) << ns) | ((tt->ttrep & mq) >> ns);
+    return ttSwap == tt->ttrep ? 1 : 0;
+}

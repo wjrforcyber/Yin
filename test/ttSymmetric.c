@@ -69,5 +69,38 @@ int main(){
     assert(isSymmetric(ttXor3) == 1);
     clearTT(ttXor3);
 
+    //partially symmetric tests: isSymmetric2Vars
+    //f = x0 AND x1, x2 irrelevant (3 vars): symmetric in x0,x1, not in x0,x2
+    //f(000)=0 f(001)=0 f(010)=0 f(011)=1 f(100)=0 f(101)=0 f(110)=0 f(111)=1
+    char tts_and3[] = "10001000";
+    truthTable *ttAnd3 = readTT(tts_and3, 0);
+    assert(isSymmetric2Vars(ttAnd3, 0, 1) == 1);
+    assert(isSymmetric2Vars(ttAnd3, 1, 0) == 1);
+    assert(isSymmetric2Vars(ttAnd3, 0, 2) == 0);
+    assert(isSymmetric2Vars(ttAnd3, 1, 2) == 0);
+    clearTT(ttAnd3);
+
+    //XOR (2 vars): symmetric in x0,x1
+    truthTable *ttXor2 = readTT(tts_xor, 0);
+    assert(isSymmetric2Vars(ttXor2, 0, 1) == 1);
+    clearTT(ttXor2);
+
+    //f = x0 (2 vars): not symmetric in x0,x1
+    truthTable *ttProj2 = readTT(tts_proj, 0);
+    assert(isSymmetric2Vars(ttProj2, 0, 1) == 0);
+    clearTT(ttProj2);
+
+    //3-input majority: symmetric in all pairs, including reversed indices
+    truthTable *ttMaj2 = readTT(tts_maj, 0);
+    assert(isSymmetric2Vars(ttMaj2, 0, 1) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 0, 2) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 1, 2) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 1, 0) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 2, 0) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 2, 1) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 0, 0) == 1);
+    assert(isSymmetric2Vars(ttMaj2, 2, 2) == 1);
+    clearTT(ttMaj2);
+
     return 0;
 }
