@@ -104,6 +104,7 @@ truthTable* readTT( char * tts, int verbose)
               break;
             default:
               printf("Unknown symbol %c.\n", *ch);
+              clearTT(a);
               return NULL;
         }
         ch++;
