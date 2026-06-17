@@ -1,0 +1,29 @@
+# Build
+/build/
+/Testing/
+
+# Compiled objects / archives (in case of out-of-tree builds)
+*.o
+*.a
+*.so
+*.exe
+
+# CMake / IDE local state
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+.cache/
+.vscode/
+.idea/
+
+# Editor / OS
+*~
+*.swp
+*.swo
+.DS_Store
+
+# ASan / crash artifacts
+core
+core.*
+*.log
