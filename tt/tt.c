@@ -94,11 +94,11 @@ truthTable* readTT( char * tts, int verbose)
         switch(*ch)
         {
             case '1':
-              *res |= (1 << len);
-              *maskBit |= (1 << len);
+              *res |= (1UL << len);
+              *maskBit |= (1UL << len);
               break;
             case '0':
-              *maskBit |= (1 << len);
+              *maskBit |= (1UL << len);
               break;
             case '-':
               break;
