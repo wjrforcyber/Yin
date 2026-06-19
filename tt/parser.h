@@ -1,3 +1,5 @@
+#pragma once
+
 #include "tt.h"
 
 enum NODE_TYPE { VAR_NODE = 0, NOT_NODE, AND_NODE, OR_NODE };

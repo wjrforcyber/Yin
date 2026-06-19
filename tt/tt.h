@@ -1,3 +1,4 @@
+#pragma once
 
 #include "array.h"
 typedef struct truthTable_ truthTable;
