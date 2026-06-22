@@ -1,5 +1,6 @@
 
 #include "unate.h"
+#include "tt.h"
 //check if the function is positive unate, negative unate or binate
 enum FUNC_TYPE isUnate(truthTable * tt, ziArray * res)
 {
@@ -52,4 +53,34 @@ enum FUNC_TYPE isUnate(truthTable * tt, ziArray * res)
     if (allNegUnate)
         return NEG_UNATE;
     return UNKNOW;
+}
+
+//check if the nth variable is positive/negative unate/binate
+enum FUNC_TYPE isUnateVarIndex(truthTable * tt, int i )
+{
+    if (tt == NULL || i < 0 || i >= tt->varNum) {
+        printf("isUnateVarIndex: index %d out of range (varNum %d).\n", i,
+               tt == NULL ? -1 : tt->varNum);
+        return UNKNOW;
+    }
+    int isPosUnate = 1;
+    int isNegUnate = 1;
+    for (int iCheck = 0; iCheck < (1 << tt->varNum); iCheck++) {
+        // only choose the assignment where variable i is 0
+        if (((iCheck >> i) & 1) == 0) {
+            int i0 = iCheck;
+            int i1 = iCheck | (1 << i);
+            int f0 = (tt->ttrep >> i0) & 1;
+            int f1 = (tt->ttrep >> i1) & 1;
+            if (f1 < f0) isPosUnate = 0;
+            if (f1 > f0) isNegUnate = 0;
+        }
+    }
+    // A variable that does not affect the output (both flags stay 1) is
+    // positive unate in the inclusive cofactor-containment sense.
+    if (isPosUnate)
+        return POS_UNATE;
+    if (isNegUnate)
+        return NEG_UNATE;
+    return BINATE;
 }

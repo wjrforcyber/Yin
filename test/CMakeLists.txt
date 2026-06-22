@@ -31,6 +31,10 @@ add_executable(ttIsUnate ttUnate.c)
 target_link_libraries(ttIsUnate ${TALIBS})
 add_test(NAME TTTestIsUnate COMMAND ttIsUnate)
 
+add_executable(ttUnateVarIndex ttUnateVarIndex.c)
+target_link_libraries(ttUnateVarIndex ${TALIBS})
+add_test(NAME TTTestUnateVarIndex COMMAND ttUnateVarIndex)
+
 add_executable(ttThreshold ttThreshold.c)
 target_link_libraries(ttThreshold yinTT)
 add_test(NAME TTTestThreshold COMMAND ttThreshold)
