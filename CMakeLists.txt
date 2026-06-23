@@ -17,3 +17,15 @@ add_subdirectory(tt)
 
 include(CTest)
 add_subdirectory(test)
+
+# --- Documentation target (off by default; needs Doxygen + a docs venv) -----
+# Configure with -DYIN_BUILD_DOCS=ON, then:  cmake --build build --target docs
+# The target delegates to scripts/build_docs.sh (Doxygen -> Sphinx pipeline).
+option(YIN_BUILD_DOCS "Build the Doxygen + Sphinx documentation site" OFF)
+if(YIN_BUILD_DOCS)
+    find_program(DOXYGEN_EXECUTABLE doxygen REQUIRED)
+    add_custom_target(docs
+        COMMAND bash scripts/build_docs.sh
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMENT "Generating Yin documentation (Doxygen + Sphinx)")
+endif()

@@ -2,6 +2,11 @@
 /build/
 /Testing/
 
+# Documentation build artifacts (Doxygen XML + Sphinx HTML + venv)
+/docs/_build/
+/docs/_doxygen/
+/.venv/
+
 # Compiled objects / archives (in case of out-of-tree builds)
 *.o
 *.a

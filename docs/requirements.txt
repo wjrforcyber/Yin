@@ -1,0 +1,8 @@
+# Pinned documentation toolchain for the Yin Sphinx+Breathe site.
+# Versions are the last mutually-compatible set for Python 3.8 (system
+# interpreter): Sphinx 6+/furo 2023.9+ need Python >= 3.9, and breathe 4.34
+# needs Sphinx < 6, so furo must stay <= 2023.8.x.
+#   python3 -m venv .venv && .venv/bin/pip install -r docs/requirements.txt
+Sphinx==5.3.0
+breathe==4.34.0
+furo==2023.3.27

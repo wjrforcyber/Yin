@@ -1,0 +1,47 @@
+# Doxygen configuration for the Yin library.
+# Only non-default options are listed; everything else uses Doxygen defaults.
+# Run: `doxygen Doxyfile` (output feeds the Sphinx+Breathe site under docs/).
+
+PROJECT_NAME           = "Yin"
+PROJECT_NUMBER         = 1.0
+PROJECT_BRIEF          = "Bit-level Boolean truth-table operations (Zodiac Program)"
+
+# --- Input scope: the Yin public API only (tt/). The Zi submodule is
+#     documented in its own repo and referenced here in prose only.
+INPUT                  = tt README.md
+FILE_PATTERNS          = *.h *.c *.md
+RECURSIVE              = NO
+USE_MDFILE_AS_MAINPAGE = README.md
+
+# --- C-oriented output.
+OPTIMIZE_OUTPUT_FOR_C  = YES
+
+# --- Extraction: everything public; hide static helpers and the 4 internal
+#     non-static functions that are not declared in any header.
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+EXCLUDE_SYMBOLS        = copyTT getBit checkPredefBound getVarNum
+
+# --- Output: XML for Breathe. Sphinx renders the HTML, so Doxygen HTML/LaTeX
+#     are off.
+OUTPUT_DIRECTORY       = docs/_doxygen
+GENERATE_XML           = YES
+GENERATE_HTML          = NO
+GENERATE_LATEX         = NO
+
+# --- Graphs (Graphviz dot is available).
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+UML_LOOK               = YES
+DIRECTORY_GRAPH        = YES
+
+# --- Warnings. Note: with EXTRACT_ALL=YES Doxygen extracts every symbol
+#     whether or not it is documented, so undocumented-member warnings do
+#     not fire. Completeness is enforced instead by scripts/check_docs.sh
+#     (every header declaration must carry a /** block). These WARN flags
+#     still surface genuine doc-command errors (bad \param, broken refs).
+WARN_IF_DOC_ERROR      = YES
+WARN_FORMAT            = "$file:$line: $text"
+QUIET                  = NO

@@ -1,11 +1,7 @@
 #include "threshold.h"
 
-/** 
- \brief Given a truth table, decide whether it is a threshold function:
-We are simplifying the problem to if the number of 1s in input variables exceeded or equal to threshold iT and at the same time the according value in truth table is 1, while other conditions at the same time are 0, then it is a threshold funtion and return 1, else return 0. For example, for 3-input majority function, and threshold number 2, returns 1.
- \param tt The truth table.
- \param iT The threshold number.
-*/
+// Threshold function of weight iT: output 1 exactly on assignments whose
+// Hamming weight is >= iT.
 int isThreshold(truthTable* tt, int iT)
 {
     int nRows = 1 << tt->varNum;

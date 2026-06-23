@@ -1,9 +1,7 @@
 #include "symmetric.h"
 
-
-/**
-  \brief Given a truth table, decide whether this is a totally symmetric function, which means swapping any variables in the original function wouldn't change the truth table. (Hamming weight)
-*/
+// Totally symmetric iff the function depends only on the Hamming weight of its
+// inputs: bucket rows by weight and check the value is constant per bucket.
 int isSymmetric(truthTable* tt)
 {
     int nRows = 1 << tt->varNum;
@@ -31,13 +29,9 @@ int isSymmetric(truthTable* tt)
     return 1;
 }
 
-/**
-  \brief Given a truth table, decide whether this is a partically symmetric function, which means swapping given 2 variables in the original function wouldn't change the according truth table.
-  Showcase illustration: https://wjrforcyber.github.io/pub/permutation.pdf .
-  \param tt The truth table.
-  \param varIndex0 The first variable index.
-  \param varIndex1 The second variable index.
-*/
+// Partial symmetry in two variables: build the table with the two variables
+// swapped via bit permutations and compare against the original.
+// Illustration: https://wjrforcyber.github.io/pub/permutation.pdf
 int isSymmetric2Vars(truthTable* tt, int varIndex0, int varIndex1)
 {
     if (varIndex0 == varIndex1)
