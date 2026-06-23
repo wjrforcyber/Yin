@@ -9,11 +9,11 @@
 
 /** Per-variable and overall unateness classification. */
 enum FUNC_TYPE {
-    POS_UNATE = 0, ///< Positive unate (monotone non-decreasing).
-    NEG_UNATE,     ///< Negative unate (monotone non-increasing).
-    BINATE,        ///< Neither positive nor negative unate in the variable.
-    IRRELEVANT,    ///< Function does not depend on the variable.
-    UNKNOW         ///< Sentinel for an internal error during detection.
+    POS_UNATE = 0,  ///< Positive unate (monotone non-decreasing).
+    NEG_UNATE,      ///< Negative unate (monotone non-increasing).
+    BINATE,         ///< Neither positive nor negative unate in the variable.
+    IRRELEVANT,     ///< Function does not depend on the variable.
+    UNKNOW          ///< Sentinel for an internal error during detection.
 };
 
 /**

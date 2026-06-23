@@ -53,11 +53,11 @@ static tt mask[] = {0x0000000000000001, 0x0000000000000003, 0x000000000000000F,
  * corresponds to the most significant bit of #truthTable_::ttrep.
  */
 struct truthTable_ {
-    int varNum;          ///< Number of variables (0..6).
-    int elementary;      ///< 1 if this is an elementary (projection) variable.
-    unsigned long ttrep; ///< Packed function values; bit i = f(input i).
+    int varNum;           ///< Number of variables (0..6).
+    int elementary;       ///< 1 if this is an elementary (projection) variable.
+    unsigned long ttrep;  ///< Packed function values; bit i = f(input i).
     unsigned long
-        maskSpec; ///< Bit i = 1 where the value is specified, 0 = don't-care.
+        maskSpec;  ///< Bit i = 1 where the value is specified, 0 = don't-care.
 };
 
 /**
@@ -69,9 +69,9 @@ struct truthTable_ {
  * #cube_::polarity bit \f$j\f$ gives its polarity (1 = positive, 0 = negated).
  */
 struct cube_ {
-    int varNum;            ///< Number of variables.
-    unsigned long polarity; ///< Per-literal polarity (bit j: 1 = positive).
-    unsigned long mask;     ///< Per-literal presence (bit j: 1 = present).
+    int varNum;              ///< Number of variables.
+    unsigned long polarity;  ///< Per-literal polarity (bit j: 1 = positive).
+    unsigned long mask;      ///< Per-literal presence (bit j: 1 = present).
 };
 
 /**

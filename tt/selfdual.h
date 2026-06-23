@@ -2,8 +2,16 @@
 
 #include "tt.h"
 
-// Returns 1 if the Boolean function is self-dual, i.e. f(x) = ~f(~x) for every
-// input assignment x (equivalently, flipping all inputs and the output leaves f
-// unchanged). Supports truth tables with 1..6 variables. Returns 0 otherwise,
-// including when tt is NULL or varNum is out of range.
+/**
+ * \ingroup tt_query
+ * Test whether a Boolean function is self-dual.
+ *
+ * A function is self-dual when \f$f(x) = \neg f(\neg x)\f$ for every input
+ * assignment \f$x\f$ — equivalently, flipping every input bit and the output
+ * bit leaves \f$f\f$ unchanged.
+ *
+ * \param tt Truth table to test (1..6 variables).
+ * \return 1 if \p tt is self-dual; 0 otherwise, including when \p tt is NULL or
+ *         its variable count is out of range.
+ */
 int isSelfDual(truthTable* tt);

@@ -16,11 +16,16 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 VENV="${VENV:-$ROOT/.venv}"
-SPHINX_BUILD="$VENV/bin/sphinx-build"
 DOXYGEN="${DOXYGEN:-doxygen}"
 
-if [ ! -x "$SPHINX_BUILD" ]; then
-    echo "error: $SPHINX_BUILD not found." >&2
+# Prefer a project venv; fall back to sphinx-build on PATH (e.g. CI installs
+# the toolchain into the runner's system Python via setup-python).
+if [ -x "$VENV/bin/sphinx-build" ]; then
+    SPHINX_BUILD="$VENV/bin/sphinx-build"
+elif command -v sphinx-build >/dev/null 2>&1; then
+    SPHINX_BUILD="$(command -v sphinx-build)"
+else
+    echo "error: sphinx-build not found (neither $VENV/bin/sphinx-build nor on PATH)." >&2
     echo "       Create the venv:  python3 -m venv .venv && .venv/bin/pip install -r docs/requirements.txt" >&2
     exit 1
 fi

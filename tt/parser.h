@@ -30,10 +30,10 @@ typedef struct exprNode_ exprNode;
  * \struct exprNode_
  */
 struct exprNode_ {
-    enum NODE_TYPE type; ///< Node kind.
-    int varIndex;        ///< For #VAR_NODE: the variable index. -1 otherwise.
-    exprNode* left;      ///< NOT child / AND,OR left operand (NULL for VAR).
-    exprNode* right;     ///< AND,OR right operand (NULL for VAR, NOT).
+    enum NODE_TYPE type;  ///< Node kind.
+    int varIndex;         ///< For #VAR_NODE: the variable index. -1 otherwise.
+    exprNode* left;       ///< NOT child / AND,OR left operand (NULL for VAR).
+    exprNode* right;      ///< AND,OR right operand (NULL for VAR, NOT).
 };
 
 /**
