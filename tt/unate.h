@@ -41,4 +41,23 @@ enum FUNC_TYPE {
  */
 enum FUNC_TYPE isUnate(truthTable* tt, ziArray* res);
 
+/**
+ * \ingroup tt_query
+ * Classify the unateness of a single variable.
+ *
+ * Tests variable \p i (0-indexed; the same bit index used by `maskTT[i]` and
+ * `initElementaryVar`) for positive unateness (output never decreases when the
+ * variable rises 0->1) and negative unateness (output never increases). The
+ * result matches entry \p i of the array filled by isUnate().
+ *
+ * A variable that does not affect the output is reported as #POS_UNATE, the
+ * inclusive cofactor-containment convention used by isUnate().
+ *
+ * \param tt Truth table to inspect.
+ * \param i  Variable index to classify (0-indexed).
+ * \return #POS_UNATE, #NEG_UNATE, or #BINATE for a valid variable, or #UNKNOW
+ *         when \p tt is NULL or \p i is out of range (`i < 0` or `i >= varNum`).
+ */
+enum FUNC_TYPE isUnateVarIndex(truthTable* tt, int i);
+
 #endif /* YIN_UNATE_H */
