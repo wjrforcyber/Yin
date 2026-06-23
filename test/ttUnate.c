@@ -39,7 +39,7 @@ int main(){
     clearTT(ttXOR);
     clearEachEntryArray(&record_xor);
 
-    //f = x0 (2 vars): x0 POS_UNATE, x1 IRRELEVANT = overall POS_UNATE
+    //f = x0 (2 vars): x0 POS_UNATE, x1 does not affect output -> overall POS_UNATE
     ziArray record_proj;
     char tts_proj[] = "1010";
     truthTable *ttProj = readTT(tts_proj, 0);
@@ -48,7 +48,7 @@ int main(){
     clearTT(ttProj);
     clearEachEntryArray(&record_proj);
 
-    //f = NOT x0 (2 vars): x0 NEG_UNATE, x1 IRRELEVANT = overall NEG_UNATE
+    //f = NOT x0 (2 vars): x0 NEG_UNATE, x1 does not affect output -> overall NEG_UNATE
     ziArray record_not;
     char tts_not[] = "0101";
     truthTable *ttNot = readTT(tts_not, 0);
@@ -57,7 +57,7 @@ int main(){
     clearTT(ttNot);
     clearEachEntryArray(&record_not);
 
-    //f = x0 AND x1, x2 IRRELEVANT (3 vars): POS+POS+IRREL = overall POS_UNATE
+    //f = x0 AND x1, x2 does not affect output (3 vars) -> overall POS_UNATE
     ziArray record_and3;
     char tts_and3[] = "10001000";
     truthTable *ttAnd3 = readTT(tts_and3, 0);
@@ -66,7 +66,7 @@ int main(){
     clearTT(ttAnd3);
     clearEachEntryArray(&record_and3);
 
-    //f = x0 XOR x1, x2 IRRELEVANT (3 vars): BIN+BIN+IRREL = overall BINATE
+    //f = x0 XOR x1, x2 does not affect output (3 vars) -> overall BINATE
     ziArray record_xor3;
     char tts_xor3[] = "01100110";
     truthTable *ttXor3 = readTT(tts_xor3, 0);
