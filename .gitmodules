@@ -1,3 +1,4 @@
 [submodule "libs/Zi"]
 	path = libs/Zi
 	url = git@github.com:wjrforcyber/Zi.git
+	branch = main
