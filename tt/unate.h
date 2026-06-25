@@ -56,7 +56,8 @@ enum FUNC_TYPE isUnate(truthTable* tt, ziArray* res);
  * \param tt Truth table to inspect.
  * \param i  Variable index to classify (0-indexed).
  * \return #POS_UNATE, #NEG_UNATE, or #BINATE for a valid variable, or #UNKNOW
- *         when \p tt is NULL or \p i is out of range (`i < 0` or `i >= varNum`).
+ *         when \p tt is NULL or \p i is out of range (`i < 0` or `i >=
+ * varNum`).
  */
 enum FUNC_TYPE isUnateVarIndex(truthTable* tt, int i);
 

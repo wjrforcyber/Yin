@@ -47,6 +47,10 @@ add_executable(ttSymmetric ttSymmetric.c)
 target_link_libraries(ttSymmetric yinTT)
 add_test(NAME TTTestSymmetric COMMAND ttSymmetric)
 
+add_executable(ttSymmetricArray ttSymmetricArray.c)
+target_link_libraries(ttSymmetricArray ${TALIBS})
+add_test(NAME TTTestSymmetricArray COMMAND ttSymmetricArray)
+
 add_executable(ttParser ttParser.c)
 target_link_libraries(ttParser yinTT)
 add_test(NAME TTTestParser COMMAND ttParser)

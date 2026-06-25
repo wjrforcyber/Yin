@@ -37,4 +37,24 @@ int isSymmetric(truthTable* tt);
  */
 int isSymmetric2Vars(truthTable* tt, int varIndex0, int varIndex1);
 
+/**
+ * \ingroup tt_query
+ * Test whether an arbitrary-length truth table (given as an array) is totally
+ * symmetric.
+ *
+ * \p tt is the function's output column in unpacked form: entry \p i (an `int`,
+ * read as `*(int*)fetchIndexArray(tt, i)`) is the output bit (0 or 1) for input
+ * assignment \p i, and `tt->size` must be a power of two `2^varNum`. This lifts
+ * the 6-variable limit of isSymmetric() — which packs the column into a single
+ * word — by spreading it across the array.
+ *
+ * The array and its entries are neither modified nor freed; ownership stays
+ * with the caller.
+ *
+ * \param tt Output-column array of length 2^varNum (one int per row).
+ * \return 1 if totally symmetric, 0 otherwise (including NULL \p tt, an empty
+ *         array, or a non-power-of-two length).
+ */
+int isSymmetricArray(ziArray* tt);
+
 #endif /* YIN_SYMMETRIC_H */
