@@ -6,17 +6,18 @@ Distribution: Evenlly distributed.
 */
 void randSimEven(int varNum, ziArray * rSimVec, unsigned long sizeVec)
 {
-    if(sizeVec > (1 << (1 << varNum)))
+    unsigned long total = 1UL << (1 << varNum);
+    if(sizeVec > total)
     {
         printf("Error: Specified a simulation number larger than all the amount of simulation pattern.\n");
         return;
     }
-    if(sizeVec == (1 << (1 << varNum)))
+    if(sizeVec == total)
     {
         printf("Warning: Generating all the simulation patterns.\n");
     }
     unsigned long i  = 0;
-    unsigned long step = (1 << (1 << varNum)) / sizeVec;
+    unsigned long step = total / sizeVec;
     while( i < sizeVec )
     {
         truthTable * pattern = initTT(varNum);
