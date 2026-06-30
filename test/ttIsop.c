@@ -6,7 +6,7 @@ int main()
 {
     char tts[] = "11101000";
     truthTable *tt = readTT(tts, 1);
-    assert(tt->varNum = 3);
+    assert(tt->varNum == 3);
     ziArray cubes;
     initArray(&cubes, 10);
     truthTable * res = isop(tt, tt, tt->varNum, &cubes);

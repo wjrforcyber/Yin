@@ -30,9 +30,30 @@ int isSymmetric(truthTable* tt)
     return 1;
 }
 
-// Partial symmetry in two variables: build the table with the two variables
-// swapped via bit permutations and compare against the original.
+// Exchange the truth-table columns for variables i and j: returns rep permuted
+// into the table of f with variables i and j swapped. Order-independent.
 // Illustration: https://wjrforcyber.github.io/pub/permutation.pdf
+static unsigned long swapVarColumns(unsigned long rep, int i, int j)
+{
+    if (i == j)
+    {
+        return rep;
+    }
+    if (i > j)
+    {
+        int tmp = i;
+        i = j;
+        j = tmp;
+    }
+    unsigned long mp = maskTT[i] & maskTTNeg[j];
+    unsigned long mq = maskTTNeg[i] & maskTT[j];
+    unsigned long mun = ~(mp | mq);
+    int ns = (1 << j) - (1 << i);
+    return (rep & mun) | ((rep & mp) << ns) | ((rep & mq) >> ns);
+}
+
+// Partial symmetry in two variables: swap the two variables via bit
+// permutations and compare against the original.
 int isSymmetric2Vars(truthTable* tt, int varIndex0, int varIndex1)
 {
     if (varIndex0 == varIndex1)
@@ -40,19 +61,45 @@ int isSymmetric2Vars(truthTable* tt, int varIndex0, int varIndex1)
         printf("Warning: Trival case doesn't mean anything.\n");
         return 1;
     }
-    if (varIndex0 > varIndex1)
-    {
-        int tmp = varIndex0;
-        varIndex0 = varIndex1;
-        varIndex1 = tmp;
-    }
-    unsigned long mp = maskTT[varIndex0] & maskTTNeg[varIndex1];
-    unsigned long mq = maskTTNeg[varIndex0] & maskTT[varIndex1];
-    unsigned long mun = ~(mp | mq);
-    int ns = (1 << varIndex1) - (1 << varIndex0);
-    unsigned long ttSwap =
-        (tt->ttrep & mun) | ((tt->ttrep & mp) << ns) | ((tt->ttrep & mq) >> ns);
+    unsigned long ttSwap = swapVarColumns(tt->ttrep, varIndex0, varIndex1);
     return ttSwap == tt->ttrep ? 1 : 0;
+}
+
+// Joint symmetry of two variable pairs: applying both transpositions at once
+// (a0<->b0 and a1<->b1) leaves the table unchanged. The two pairs are disjoint,
+// so the swaps commute and compose into the joint permutation.
+int isSymmetric2Pairs(truthTable* tt, int a0, int b0, int a1, int b1)
+{
+    if (tt == NULL)
+    {
+        return 0;
+    }
+    int n = tt->varNum;
+    int idx[4] = {a0, b0, a1, b1};
+    for (int k = 0; k < 4; k++)
+    {
+        if (idx[k] < 0 || idx[k] >= n)
+        {
+            printf("isSymmetric2Pairs: index %d out of range (varNum %d).\n",
+                   idx[k], n);
+            return 0;
+        }
+    }
+    for (int k = 0; k < 4; k++)
+    {
+        for (int l = k + 1; l < 4; l++)
+        {
+            if (idx[k] == idx[l])
+            {
+                printf("isSymmetric2Pairs: indices must be pairwise distinct.\n");
+                return 0;
+            }
+        }
+    }
+    unsigned long rep = tt->ttrep;
+    rep = swapVarColumns(rep, a0, b0);
+    rep = swapVarColumns(rep, a1, b1);
+    return rep == tt->ttrep ? 1 : 0;
 }
 
 // Arbitrary-length truth table: the output column is supplied unpacked as a

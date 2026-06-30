@@ -102,5 +102,28 @@ int main(){
     assert(isSymmetric2Vars(ttMaj2, 2, 2) == 1);
     clearTT(ttMaj2);
 
+    // joint symmetry of two pairs: f = (a + b*x)(c + d*x) with a=0,b=1,x=2,c=3,d=4
+    // factor pairs {a,b} and {c,d} are exchangeable, so (a,c)+(b,d) is symmetric,
+    // but neither pair is symmetric alone.
+    {
+        char s[] = "11101010111000001110101000000000";
+        truthTable *t = readTT(s, 0);
+        assert(isSymmetric2Vars(t, 0, 3) == 0);   // a <-> c alone: no
+        assert(isSymmetric2Vars(t, 1, 4) == 0);   // b <-> d alone: no
+        assert(isSymmetric2Pairs(t, 0, 3, 1, 4) == 1);  // (a,c)+(b,d): yes
+        assert(isSymmetric2Pairs(t, 3, 0, 4, 1) == 1);  // order-independent
+        assert(isSymmetric2Pairs(t, 0, 1, 3, 4) == 0);  // (a,b)+(c,d): no
+        clearTT(t);
+    }
+
+    // invalid inputs: out of range and non-distinct indices return 0
+    {
+        char s[] = "0110";  // 2 vars
+        truthTable *t = readTT(s, 0);
+        assert(isSymmetric2Pairs(t, 0, 1, 2, 3) == 0);  // index 2,3 out of range
+        assert(isSymmetric2Pairs(t, 0, 1, 0, 1) == 0);  // not pairwise distinct
+        clearTT(t);
+    }
+
     return 0;
 }
