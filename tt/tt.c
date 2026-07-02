@@ -197,20 +197,12 @@ truthTable* one(truthTable * tt)
     return z;
 }
 
-//get the weight of truthtable
+//get the weight of truthtable: number of defined on-set minterms. Scoped to
+//maskSpec so don't-care bits are excluded; __builtin_popcountl covers the full
+//64-bit unsigned long.
 int getWeight(truthTable *tt)
 {
-    int count = 0;
-    unsigned long ttRep = tt->ttrep;
-    while(ttRep > 0)
-    {
-        if((ttRep & 1) == 1)
-        {
-            count++;
-        }
-        ttRep >>= 1;
-    }
-    return count;
+    return __builtin_popcountl(tt->ttrep & tt->maskSpec);
 }
 
 //get the distance between two truthtable
